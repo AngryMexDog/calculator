@@ -15,25 +15,26 @@ operations = {
   "+": add,
   "-": subtract,
   "*": multiply,
-  "/": divide
-}
+  "/": divide}
+def calculator():
+  num1 = int(input("What's the first number?: "))
+  for symbol in operations:
+      print(symbol)
+  should_continue = True
 
-num1 = int(input("What's the first number?: "))
-num2 = int(input("What's the second number?: "))
+  while should_continue:
 
-for symbol in operations:
-    print(symbol)
+    operation_symbol = input("Pick an operation: ")
+    num2 = int(input("What's the next number?: "))
+    calculation_function = operations[operation_symbol]
+    answer = calculation_function(num1, num2)
 
-operation_symbol = input("Pick an operation from the line above: ")
+    print(f"{num1} {operation_symbol} {num2} = {answer}")
 
-calculation_function = operations[operation_symbol]
-first_answer = calculation_function(num1, num2)
+    if input(f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation.:  ") == "y":
+      num1 = answer
+    else:
+      should_continue = False
+      calculator()
 
-print(f"{num1} {operation_symbol} {num2} = {first_answer}")
-
-operation_symbol = input("Pick another operation from the line above: ")
-num3 = int(input("What's the next number?: "))
-calculation_function = operations[operation_symbol]
-second_answer = calculation_function(calculation_function(num1, num2),num3)
-
-print(f"{first_answer} {operation_symbol} {num3} = {second_answer}")
+calculator()
